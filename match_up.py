@@ -59,13 +59,12 @@ def calculate_score(pairings_list):
         for i_list in list_of_lists:
             for value in i_list:
                 yield value
-    seen_pairs = set()
+    seen_pairs = {}
     duplicates = 0
     for pair in flatten(pairings_list):
         if pair in seen_pairs:
-            duplicates += 1
-        else:
-            seen_pairs.add(pair)
+            duplicates += seen_pairs[pair]
+        seen_pairs[pair] = seen_pairs.get(pair, 0) + 1
     return duplicates
 
 def swap_random_players(pairings):
